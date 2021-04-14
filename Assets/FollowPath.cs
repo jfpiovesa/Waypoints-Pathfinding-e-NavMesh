@@ -1,25 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Experimental.Rendering;
 
 public class FollowPath : MonoBehaviour
 {
     Transform goal;
     [SerializeField] float speed = 5.0f;  //velocidade do objeto
-    [SerializeField]  float accuracy = 1f; // verificção da distacia do ponto
+    [SerializeField] float accuracy = 1f; // verificção da distacia do ponto
     [SerializeField] float rotSpeed = 2f;// velocidade da rotação
-
+    
     public GameObject wpManager;//para pegar o objeto que tenha script wpmanager 
     GameObject[] wp;// lista de wp para se orientar
-    GameObject currentNode; 
+    GameObject currentNode;
     int currentWP = 0; // zera wp
     Graph g;
 
-    // Start is called before the first frame update
+
+    [Header("Camera")]
+    public GameObject[] cam;
+    bool camAtiva = true;
+
+    NavMeshAgent agent;
+
     void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();// pegando o navemesh
         wp = wpManager.GetComponent<WpManager>().waypoints;        //peganndo os obejto focando no waypoints wpmanager
         g = wpManager.GetComponent<WpManager>().graph;        //peganndo os obejto graph dentro do wpmanager
 
@@ -27,7 +34,7 @@ public class FollowPath : MonoBehaviour
         currentNode = wp[0]; // ja começa a lista de wp em 0
     }
 
-    // Update is called once per frame
+
 
     public void Goto(int valor)// gatilho que execulta uma ação, que seria se mover em um ponto denominado pela varial posta dentro do metodo que é  modificada qando se  poen dentor de um evento na unity
     {
@@ -54,10 +61,28 @@ public class FollowPath : MonoBehaviour
         {   
             goal = g.getPathPoint(currentWP).transform;
             Vector3 lookAtGoal = new Vector3(goal.position.x, this.transform.position.y, goal.position.z);
-            Vector3 direction = lookAtGoal - this.transform.position; 
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotSpeed);
-            this.transform.Translate(0, 0, speed * Time.deltaTime);
+           // Vector3 direction = lookAtGoal - this.transform.position; 
+            //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotSpeed);
+            //  this.transform.Translate(0, 0, speed * Time.deltaTime);
+            agent.destination = lookAtGoal;// usando proprio recuso do navemesh de movimentação mais dando as direcoes com o vertor (lookatgol) que tem os valores dos waypoints da lista
         }
+    }
+    public void Cam()// para alterar entre as cameras 
+    {
+
+        if (camAtiva == true)
+        {
+            cam[0].SetActive(true);
+            cam[1].SetActive(false);
+            camAtiva = false;
+        }
+        else
+        {
+            cam[1].SetActive(true);
+            cam[0].SetActive(false);
+            camAtiva = true;
+        }
+       
     }
 }
 
