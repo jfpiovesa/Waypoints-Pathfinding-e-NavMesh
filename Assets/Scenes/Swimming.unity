@@ -373,7 +373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260379327}
   m_LocalRotation: {x: 0.2475776, y: 0.6302484, z: -0.22245295, w: 0.70143205}
-  m_LocalPosition: {x: -4.7642574, y: -2.09732, z: -4.305016}
+  m_LocalPosition: {x: -9.15, y: 1.46, z: -4.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -454,6 +454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 844392705051662517, guid: e668f993233de9346abc59a705e8ea11,
         type: 3}
+      propertyPath: maxSpeed
+      value: 1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 844392705051662517, guid: e668f993233de9346abc59a705e8ea11,
+        type: 3}
       propertyPath: minSpeed
       value: 0.5
       objectReference: {fileID: 0}
@@ -462,5 +467,15 @@ PrefabInstance:
       propertyPath: fishPrefab
       value: 
       objectReference: {fileID: 1308312251}
+    - target: {fileID: 844392705051662517, guid: e668f993233de9346abc59a705e8ea11,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 844392705051662517, guid: e668f993233de9346abc59a705e8ea11,
+        type: 3}
+      propertyPath: neighbourDistance
+      value: 1.61
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e668f993233de9346abc59a705e8ea11, type: 3}
