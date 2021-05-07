@@ -20,11 +20,20 @@ public class FLOCK : MonoBehaviour
     void Update()
     {
         Bounds b = new Bounds(myManager.transform.position, myManager.swinLimits * 2);// distacia maxaima que o peixe do cardume vai
-        if(!b.Contains(transform.position))
+        Vector3 direction = myManager.transform.position - transform.position;
+        RaycastHit hit = new RaycastHit();
+        if (!b.Contains(transform.position))
         {
 
             turnnig = true;
-
+          
+            direction = myManager.transform.position - transform.position;
+        }
+        else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))
+        {
+            turnnig = true;
+            direction = Vector3.Reflect(this.transform.forward, hit.normal);
+        
         }
         else
         {
@@ -32,7 +41,7 @@ public class FLOCK : MonoBehaviour
         }
         if(turnnig)
         {
-            Vector3 direction = myManager.transform.position - transform.position;
+            
             transform.rotation = Quaternion.Slerp(transform.rotation,
                 Quaternion.LookRotation(direction),
                 myManager.rotateSpeed * Time.deltaTime);
