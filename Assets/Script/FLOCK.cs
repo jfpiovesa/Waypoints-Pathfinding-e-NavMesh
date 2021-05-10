@@ -29,7 +29,7 @@ public class FLOCK : MonoBehaviour
           
             direction = myManager.transform.position - transform.position;
         }
-        else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))
+        else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))// verificando se a colisão perto do objeto
         {
             turnnig = true;
             direction = Vector3.Reflect(this.transform.forward, hit.normal);
@@ -39,7 +39,7 @@ public class FLOCK : MonoBehaviour
         {
             turnnig = false;
         }
-        if(turnnig)
+        if(turnnig)//rotação do objeto 
         {
             
             transform.rotation = Quaternion.Slerp(transform.rotation,
@@ -70,9 +70,9 @@ public class FLOCK : MonoBehaviour
         Vector3 vcenter = Vector3.zero;
         Vector3 vavoid = Vector3.zero;
 
-        float gSpeed = 0.01f;
-        float nDistance;
-        int grupSize = 0;
+        float gSpeed = 0.01f;// velocidade
+        float nDistance;// raio de destacia
+        int grupSize = 0;// tamanho do grupo
 
         foreach(GameObject go in goes)
         {
