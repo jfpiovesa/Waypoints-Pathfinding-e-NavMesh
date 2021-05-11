@@ -6,8 +6,8 @@ using UnityEngine;
 public class FLOCK : MonoBehaviour
 {
     public FlockManager myManager;// pegando o scrip 
-    float speed;
-    bool turnnig = false;
+    float speed; // velocidade
+    bool turnnig = false;// verificação de rotação 
 
 
 
@@ -32,7 +32,7 @@ public class FLOCK : MonoBehaviour
         else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))// verificando se a colisão perto do objeto
         {
             turnnig = true;
-            direction = Vector3.Reflect(this.transform.forward, hit.normal);
+            direction = Vector3.Reflect(this.transform.forward, hit.normal);// verifica a direção que vai e se tem algo que va colidir
         
         }
         else
@@ -48,7 +48,7 @@ public class FLOCK : MonoBehaviour
         }
         else
         {
-            if(Random.Range(0,100) <10)
+            if(Random.Range(0,100) <10)// velocidades do peixes forma randomica
             {
                 speed = Random.Range(myManager.minSpeed, myManager.maxSpeed);
             }
@@ -74,7 +74,7 @@ public class FLOCK : MonoBehaviour
         float nDistance;// raio de destacia
         int grupSize = 0;// tamanho do grupo
 
-        foreach(GameObject go in goes)
+        foreach(GameObject go in goes)//se não for este objeto a distacia do corpo dos objetos vai aulmentar  e se for menor que 1 vai diminuir 
         {
             if( go != this.gameObject)
             {
@@ -94,14 +94,14 @@ public class FLOCK : MonoBehaviour
                 }              
               }
         }
-        if(grupSize >0)
+        if(grupSize >0)//se o  grupo for menor que 0 
         {
-            vcenter = vcenter / grupSize + (myManager.goalPos - this.transform.position);
-            speed = gSpeed / grupSize;
+            vcenter = vcenter / grupSize + (myManager.goalPos - this.transform.position); // calculado o raio de ação dos peixes
+            speed = gSpeed / grupSize;// a velocidade que eles vão agir referente ao grupo
 
             Vector3 direction = (vcenter + vavoid) - transform.position;
 
-            if( direction !=  Vector3.zero)
+            if( direction !=  Vector3.zero)// se centro for diferente faça que rotacione para centro do grupo 
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation,
                     Quaternion.LookRotation(direction), myManager.rotateSpeed *Time.deltaTime);
